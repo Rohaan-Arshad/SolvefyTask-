@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Solvefy_Task.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<h1 style="color:darkgoldenrod">Welcome , @ViewBag.mySession</h1>
+<h1>Product Details </h1>
+
+<div>
+    <a  asp-action="Create" class="btn btn-success">Add new item</a>
+</div>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+                <td>
+                    <!-- Edit button -->
+                    <form asp-controller="Home" asp-action="Edit" method="get">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </form>
+                </td>
+                <td>
+                    <!-- Details button -->
+                    <form asp-controller="Home" asp-action="Details" method="get">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <button type="submit" class="btn btn-info">Details</button>
+                    </form>
+                </td>
+                <td>
+                    <!-- Delete button -->
+                    <form asp-controller="Home" asp-action="Delete" method="post" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+<div class="btn-group" role="group" aria-label="Basic example">
+    <a class="btn btn-primary" asp-controller="Home" asp-action="Logout">Logout</a>
+
+</div><p>

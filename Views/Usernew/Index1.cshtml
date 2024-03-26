@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Solvefy_Task.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 style="color:darkgoldenrod">Welcome, @ViewBag.mySession</h1>
+<h1>Product Details</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Price)</th>
+            <th>@Html.DisplayNameFor(model => model.Description)</th>
+            <th>@Html.DisplayNameFor(model => model.Category)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                <td>@Html.DisplayFor(modelItem => item.Category)</td>
+                <td>
+                    <form asp-controller="Usernew" asp-action="AddToCart" method="post">
+                        <input type="hidden" name="productId" value="@item.Id" />
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div style="padding:30px" class="btn-group" role="group" aria-label="Basic example">
+    <a class="btn btn-primary" asp-controller="Usernew" asp-action="Logout">Logout</a>
+    <a class="btn btn-secondary" asp-controller="Usernew" asp-action="ViewCart">View Cart</a>
+
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+}
